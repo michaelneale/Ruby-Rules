@@ -1,0 +1,36 @@
+ruleset:
+- rule: Dangerous driver
+  set: Driver d, Vehicle v
+  if:
+  - d.age < 21
+  - v.type == 'fast'
+  then:
+  - puts 'nah verrily'
+
+#so this is with globals:
+- rule: crazy talk
+  if:
+  - person.is_crazy
+  - person.likes_cheese
+  then:
+  - kill person
+
+- rule: Foo
+  set: Driver, Vehicle
+  if: driver.age < 21 and vehicle.high_performance
+  then: reject application
+
+#ok an idea: how to add convenience methods/wrappers to facts?
+#so rules can read more and more plain english
+#how to store these mappings? in code? in yaml?
+
+vocabulary:
+  -fact: Driver
+    fields: age, priors, name #the presense of this means that the fact will use
+    #these fields to work out outs class, rather then the class
+    map: #gets stuck on the Driver class proxy
+    - is_crazy = age < 21 and priors > 3
+    - is_happy = age > 90
+
+
+#what about more traditional deftemplate type things?
